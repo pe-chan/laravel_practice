@@ -35,21 +35,31 @@
 @if (count($tasks) > 0)
 <div class="panel panel-default">
     <div class="panel-heading">
-        Current Tasks
+        Current Tasks (現在のタスク)
     </div>
 
     <div class="panel-body">
-        <table class="table table-striped task-table">
+        <table class="table table-striped task-table table-bordered">
             <thead>
-                <td>Task</td>
-                <td>&nbsp;</td>
+                <tr class="success">
+                    <td class="text-center">Task</td>
+                    <td>&nbsp;</td>
+                </tr>
             </thead>
             <tbody>
                 @foreach ($tasks as $task)
-                    <tr>
-                    <td class="table-text">{{ $task->name }}</td>
-                        <!-- TODO: 削除ボタンを追加する -->
-                        <td></td>
+                    <tr class="info">
+                    <td class="table-text text-center">{{ $task->name }}</td>
+                        <td>
+                            <form action="{{ url('task/'.$task->id) }}" method="POST">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+
+                                <button class="btn btn-danger btn-sm" type="submit">
+                                    <i class="fa fa-trash"></i> Delete
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
